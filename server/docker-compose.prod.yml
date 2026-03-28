@@ -1,0 +1,28 @@
+version: '3'
+services:
+  nakama:
+    build: .
+    container_name: tictactoe-nakama-prod
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+    ports:
+      - '7349:7349'
+      - '7350:7350'
+      - '7351:7351'
+    entrypoint:
+      - '/bin/sh'
+      - '-ecx'
+      - >
+        /nakama/nakama migrate up --database.address ${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME} &&
+        exec /nakama/nakama --config /nakama/data/local.yml --database.address ${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME} --logger.level INFO
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:7350/']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped

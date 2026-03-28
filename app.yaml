@@ -1,0 +1,84 @@
+name: tictactoe-nakama
+services:
+  # Frontend - Next.js application
+  - name: frontend
+    github:
+      branch: main
+      repo: your-username/TicTacToe-Nakama
+      deploy_on_push: true
+    source_dir: client
+    build_command: npm run build
+    run_command: npm run start
+    http_port: 3000
+    envs:
+      - key: NEXT_PUBLIC_SERVER_API
+        value: nakama-api.ondigitalocean.app
+      - key: NEXT_PUBLIC_SERVER_PORT
+        value: "443"
+      - key: NEXT_PUBLIC_USE_SSL
+        value: "true"
+    health_check:
+      http_path: /
+    cors:
+      allow_origins:
+        - prefix: "*"
+      allow_methods:
+        - GET
+        - POST
+        - OPTIONS
+      allow_headers:
+        - Content-Type
+        - Authorization
+      expose_headers:
+        - Content-Length
+
+  # Backend - Nakama server
+  - name: nakama-api
+    image:
+      registry_type: DOCR
+      repository: tictactoe-nakama
+      tag: latest
+    envs:
+      - key: DATABASE_USER
+        scope: RUN_AND_BUILD_TIME
+        value: ${db.username}
+      - key: DATABASE_PASSWORD
+        scope: RUN_AND_BUILD_TIME
+        value: ${db.password}
+      - key: DATABASE_HOST
+        scope: RUN_AND_BUILD_TIME
+        value: ${db.host}
+      - key: DATABASE_PORT
+        scope: RUN_AND_BUILD_TIME
+        value: "5432"
+      - key: DATABASE_NAME
+        scope: RUN_AND_BUILD_TIME
+        value: ${db.name}
+    http_port: 7350
+    build:
+      source_dir: server
+    envs:
+      - key: DATABASE_USER
+        scope: RUN_AND_BUILD_TIME
+        value: doadmin
+      - key: DATABASE_PASSWORD
+        scope: RUN_AND_BUILD_TIME
+        value: ${db.password}
+      - key: DATABASE_HOST
+        scope: RUN_AND_BUILD_TIME
+        value: ${db.host}
+      - key: DATABASE_PORT
+        scope: RUN_AND_BUILD_TIME
+        value: "5432"
+      - key: DATABASE_NAME
+        scope: RUN_AND_BUILD_TIME
+        value: nakama
+    health_check:
+      http_path: /
+    http_port: 7350
+
+databases:
+  - name: postgres
+    engine: PG
+    version: "12"
+    production: true

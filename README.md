@@ -1,0 +1,124 @@
+# xoxo-nextjs-nakama
+
+A simple Tic-Tac-Toe/xoxo multiplayer online game build with nextjs and nakama
+
+<h1 align="center">
+  <img src="demo.png" style="height: 400px;"alt="tic-tac-toe">
+</h1>
+
+# tutorial
+
+## nakama
+
+- video
+  - [Nakama Client Side Tutorial (js)](https://www.youtube.com/watch?v=nbvVNmwjOrA)
+  - [Nakama Server Runtime Code Project Setup using TypeScript](https://www.youtube.com/watch?v=FXguREV6Zf8)
+- document
+  - [nakama server](https://heroiclabs.com/docs/nakama/concepts/multiplayer/authoritative/)
+
+# Usage
+
+## client
+
+template from https://github.com/shadcn-ui/next-template
+
+```
+cd clien && cp .env.example .env.local
+cd client && pnpm install
+cd client && pnpm run dev
+```
+
+## server
+
+template from https://github.com/heroiclabs/nakama-project-template
+
+```
+# if you want to yarn or pnpm, you should also change Dockerfile
+cd server && npm install
+cd server && docker-compose up
+
+# when change source code, rebuild docker
+cd server && docker-compose up --build
+```
+
+### port
+
+- "7349": gRPC API server
+- "7350": HTTP API server
+- "7351": http://127.0.0.1:7351 : nakama console (web ui)
+  - username and password can set in `/data/my-config.yml`
+
+# Deployment
+
+## 🚀 Deploy to DigitalOcean (Recommended)
+
+The fastest way to get your game live in 15 minutes.
+
+### Quick Start
+```bash
+# See QUICKSTART.md for step-by-step instructions
+# Summary: GitHub → DigitalOcean App Platform → PostgreSQL
+```
+
+**Documentation:**
+- **[QUICKSTART.md](./QUICKSTART.md)** - 5-step deployment (15 min)
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Detailed guide with troubleshooting
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - System design & data flow
+- **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** - Common issues & solutions
+
+### What's Deployed
+- **Frontend:** Next.js on DigitalOcean App Platform
+- **Backend:** Nakama on DigitalOcean App Platform with Docker
+- **Database:** PostgreSQL 12 (Managed)
+
+### Cost
+- ~$27/month (includes $200 free trial credit)
+- Scales to millions of players
+
+---
+
+## Local Development
+
+### Client
+```bash
+cd client && cp .env.example .env.local
+cd client && pnpm install
+cd client && pnpm run dev
+# Runs on http://localhost:3000
+```
+
+### Server
+```bash
+cd server && npm install
+cd server && docker-compose up
+
+# When code changes:
+cd server && docker-compose up --build
+```
+
+### Ports
+- **7349**: gRPC API server
+- **7350**: HTTP API server (WebSocket)
+- **7351**: Nakama console (http://localhost:7351)
+  - Username: `admin`
+  - Password: `password`
+
+---
+
+## Manual Deployment (Advanced)
+
+For custom hosting, VPS, or Kubernetes:
+
+```bash
+# Build frontend
+cd client && npm run build && npm run start
+
+# Build and run server
+cd server && npm install
+cd server && docker build -t tictactoe-nakama:latest .
+docker run -d -p 7349:7349 -p 7350:7350 -p 7351:7351 \
+  -e DATABASE_HOST=your_db_host \
+  -e DATABASE_USER=your_user \
+  -e DATABASE_PASSWORD=your_password \
+  tictactoe-nakama:latest
+```
