@@ -4,6 +4,7 @@ import Square from './square';
 import { MatchData } from '@heroiclabs/nakama-js';
 import Nakama from '@/lib/nakama';
 import {
+  Mark,
   OpCode,
   StartMessage,
   DoneMessage,
@@ -28,7 +29,7 @@ export default function Game() {
   const [showNicknameModal, setShowNicknameModal] = useState<boolean>(true);
   const [showWaitingScreen, setShowWaitingScreen] = useState<boolean>(false);
   const [showWinnerScreen, setShowWinnerScreen] = useState<boolean>(false);
-  const [winner, setWinner] = useState<number>(-1);
+  const [winner, setWinner]  = useState<number | null>(null);
   const [playerNickname, setPlayerNickname] = useState<string>('');
   const [opponentNickname, setOpponentNickname] = useState<string>('Opponent');
   const [sessionId, setSessionId] = useState<string>('');

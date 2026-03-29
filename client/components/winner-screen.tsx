@@ -2,7 +2,7 @@
 
 interface WinnerScreenProps {
   playerIndex: number;
-  winner: number;
+  winner: number | null;
   points: number;
   playerNickname: string;
   opponentNickname: string;
@@ -17,13 +17,22 @@ export function WinnerScreen({
   opponentNickname,
   onPlayAgain,
 }: WinnerScreenProps) {
-  const isWinner = playerIndex === winner;
+  const isWinner = winner !== null && playerIndex === winner;
+  const isDraw = winner === null;
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black/50 z-50'>
       <div className='bg-gradient-to-br from-[#0f1419] to-[#1a1f2e] rounded-lg p-8 w-96 border border-[#00d9ff]/20'>
         <div className='text-center mb-8'>
-          {isWinner ? (
+          {isDraw ? (
+            <>
+              <div className='text-9xl font-bold text-gray-400 mb-4'>
+                🤝
+              </div>
+              <h2 className='text-3xl font-bold text-[#00d9ff] mb-2'>Draw</h2>
+              <p className='text-2xl font-bold text-[#00d9ff]'>No points awarded</p>
+            </>
+          ) : isWinner ? (
             <>
               <div className='text-9xl font-bold text-white mb-4'>
                 {playerIndex === 0 ? '✕' : '○'}
