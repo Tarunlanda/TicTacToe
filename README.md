@@ -47,35 +47,6 @@ cd server && docker-compose up --build
 - "7351": http://127.0.0.1:7351 : nakama console (web ui)
   - username and password can set in `/data/my-config.yml`
 
-# Deployment
-
-## 🚀 Deploy to DigitalOcean (Recommended)
-
-The fastest way to get your game live in 15 minutes.
-
-### Quick Start
-```bash
-# See QUICKSTART.md for step-by-step instructions
-# Summary: GitHub → DigitalOcean App Platform → PostgreSQL
-```
-
-**Documentation:**
-- **[QUICKSTART.md](./QUICKSTART.md)** - 5-step deployment (15 min)
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Detailed guide with troubleshooting
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - System design & data flow
-- **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** - Common issues & solutions
-
-### What's Deployed
-- **Frontend:** Next.js on DigitalOcean App Platform
-- **Backend:** Nakama on DigitalOcean App Platform with Docker
-- **Database:** PostgreSQL 12 (Managed)
-
-### Cost
-- ~$27/month (includes $200 free trial credit)
-- Scales to millions of players
-
----
-
 ## Local Development
 
 ### Client
