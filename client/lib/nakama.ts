@@ -15,7 +15,9 @@ class Nakama {
     public gameState: GameState = new GameState();
 
     constructor() {
-        this.client = new Client("defaultkey", process.env.NEXT_PUBLIC_SERVER_API, process.env.NEXT_PUBLIC_SERVER_PORT, process.env.NEXT_PUBLIC_USE_SSL === "true");
+        const port = parseInt(process.env.NEXT_PUBLIC_SERVER_PORT || "7350", 10);
+        const useSSL = process.env.NEXT_PUBLIC_USE_SSL === "true";
+        this.client = new Client("defaultkey", process.env.NEXT_PUBLIC_SERVER_API || "localhost", port, useSSL);
     }
 
     async authenticate(): Promise<void> {
