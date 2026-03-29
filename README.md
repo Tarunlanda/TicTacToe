@@ -1,6 +1,6 @@
 # xoxo-nextjs-nakama
 
-A simple Tic-Tac-Toe/xoxo multiplayer online game build with nextjs and nakama
+A simple Tic-Tac-Toe multiplayer online game build with nextjs and nakama
 
 <h1 align="center">
   <img src="demo.png" style="height: 400px;"alt="tic-tac-toe">
