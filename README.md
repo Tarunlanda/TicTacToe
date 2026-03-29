@@ -1,14 +1,12 @@
-# xoxo-nextjs-nakama
+# nextjs-nakama
 
 A simple Tic-Tac-Toe multiplayer online game build with nextjs and nakama
 
-<h1 align="center">
-  <img src="demo.png" style="height: 400px;"alt="tic-tac-toe">
-</h1>
 
 
-# Url for front end
-Link of the front end : 
+##  Url for front end
+
+Link of the front end : https://tic-tac-toe-xi-red-68.vercel.app/
 
 
 
