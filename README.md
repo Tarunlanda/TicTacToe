@@ -6,13 +6,12 @@ A simple Tic-Tac-Toe/xoxo multiplayer online game build with nextjs and nakama
   <img src="demo.png" style="height: 400px;"alt="tic-tac-toe">
 </h1>
 
-# tutorial
 
-## nakama
+# Url for front end
+Link of the front end : 
 
-- video
-  - [Nakama Client Side Tutorial (js)](https://www.youtube.com/watch?v=nbvVNmwjOrA)
-  - [Nakama Server Runtime Code Project Setup using TypeScript](https://www.youtube.com/watch?v=FXguREV6Zf8)
+
+
 - document
   - [nakama server](https://heroiclabs.com/docs/nakama/concepts/multiplayer/authoritative/)
 
